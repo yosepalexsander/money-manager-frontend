@@ -27,11 +27,6 @@
       "last 1 safari version"
     ]
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "devDependencies": {
     "eslint": "^8.19.0",
     "eslint-plugin-import": "^2.24.2",
