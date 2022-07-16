@@ -3,7 +3,7 @@ module.exports = {
     browser: true,
     es2021: true,
   },
-  extends: ["react-app"],
+  extends: ["react-app", "plugin:import/recommended"],
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
@@ -11,7 +11,7 @@ module.exports = {
     ecmaVersion: "latest",
     sourceType: "module",
   },
-  plugins: ["react", "eslint-plugin-simple-import-sort", "prettier"],
+  plugins: ["import", "eslint-plugin-simple-import-sort", "prettier"],
 
   rules: {
     "max-len": ["error", 120],
@@ -30,8 +30,9 @@ module.exports = {
     "simple-import-sort/exports": "error",
     "import/first": "error",
     "import/newline-after-import": "error",
-    "import/no-duplicates": "error",
     "import/no-default-export": "error",
+    "import/no-duplicates": "error",
+    "import/no-unresolved": 0,
     "import/no-unused-modules": 0,
     "react/display-name": "off",
     "react/jsx-filename-extension": ["error", { extensions: [".jsx"] }],
