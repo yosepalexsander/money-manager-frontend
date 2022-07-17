@@ -5,7 +5,7 @@ import React from "react";
 import { Transaction } from "../components/auth/Transaction";
 import { LayoutUser } from "../components/LayoutUser";
 
-export const HomeWeekly = () => {
+export const HomeMonthly = () => {
   const title = "Home";
   document.title = "Hacketon | " + title;
 
@@ -33,20 +33,20 @@ export const HomeWeekly = () => {
                                     <div className="mb-1 mt-1 d-flex">
                                       <div className="pe-5">
                                         <h5 className="pb-3" style={{ color: "#050505", fontSize: "20px" }}>
-                                          Food &emsp;
+                                          July &emsp;
                                         </h5>
                                       </div>
                                       <div className="pe-5" style={{ paddingLeft: "32%" }}>
                                         <h5 className="pb-3" style={{ color: "#0889FF", fontSize: "20px" }}>
-                                          Rp. 500,000 &emsp;
+                                          Rp. 1,000,000 &emsp;
                                         </h5>
                                       </div>
                                       <div className="ps-4">
                                         <h5 className="pb-3" style={{ color: "#F06161", fontSize: "20px" }}>
-                                          Rp. 50,000 &emsp;
+                                          Rp. 85,000 &emsp;
                                         </h5>
                                         <h5 className="pb-3" style={{ color: "#050505", fontSize: "20px" }}>
-                                          Rp. 450,000 &emsp;
+                                          Rp. 915,000 &emsp;
                                         </h5>
                                       </div>
                                     </div>
