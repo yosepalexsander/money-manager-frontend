@@ -1,27 +1,21 @@
-import { useContext, useState } from "react";
-import { Alert, Button, Modal } from "react-bootstrap";
+import React, { useState } from "react";
+import { Alert, Button, Form, Modal } from "react-bootstrap";
 import { useMutation } from "react-query";
-import { useNavigate } from "react-router-dom";
 
 import { API } from "../../config/api";
-import { UserContext } from "../../context/userContext";
 
-export const Login = ({ show, handleClose }) => {
-  let navigate = useNavigate();
-
-  const title = "Login";
+export const AddCategory = ({ show, handleClose }) => {
+  const title = "Register";
   document.title = "DumbMerch | " + title;
-
-  const [dispatch] = useContext(UserContext);
 
   const [message, setMessage] = useState(null);
   const [form, setForm] = useState({
+    name: "",
     email: "",
     password: "",
   });
 
-  const { email, password } = form;
-
+  const { email } = form;
   const handleChange = (e) => {
     setForm({
       ...form,
@@ -40,24 +34,24 @@ export const Login = ({ show, handleClose }) => {
       };
 
       const body = JSON.stringify(form);
+      const response = await API.post("/register", body, config);
 
-      const response = await API.post("/login", body, config);
-
-      if (response?.status === 200) {
-        dispatch({
-          type: "LOGIN_SUCCESS",
-          payload: response.data.data,
-        });
-
-        if (response.data.data.status === "Admin") {
-          navigate("/admin");
-        } else {
-          navigate("/user");
-        }
-
+      if (response.data.status === "success...") {
         const alert = (
           <Alert variant="success" className="py-1">
-            Login success
+            Success
+          </Alert>
+        );
+        setMessage(alert);
+        setForm({
+          name: "",
+          email: "",
+          password: "",
+        });
+      } else {
+        const alert = (
+          <Alert variant="danger" className="py-1">
+            Failed
           </Alert>
         );
         setMessage(alert);
@@ -65,7 +59,7 @@ export const Login = ({ show, handleClose }) => {
     } catch (error) {
       const alert = (
         <Alert variant="danger" className="py-1">
-          Login failed
+          Failed
         </Alert>
       );
       setMessage(alert);
@@ -74,50 +68,51 @@ export const Login = ({ show, handleClose }) => {
   });
 
   return (
-    <Modal show={show} onHide={handleClose} centered style={{ width: "30%", marginLeft: "35%" }}>
+    <Modal show={show} onHide={handleClose} centered style={{ width: "24%", marginLeft: "38%" }}>
       <Modal.Body className="text-dark">
         <div
           style={{ fontSize: "22px", lineHeight: "49px", fontWeight: "600", borderBottom: "solid" }}
           className="mt-3 mb-5">
-          Log In
+          Create new category
         </div>
-
         {message && message}
-        <form onSubmit={(e) => handleSubmit.mutate(e)}>
+        <Form onSubmit={(e) => handleSubmit.mutate(e)}>
           <div className="mt-3 form d-flex">
-            <h5 className="me-5 pe-5 mt-1">Name</h5>
+            <h5 className="me-5 mt-1">Name</h5>
             <input
               type="text"
-              placeholder="e.g Johndoe@example.com"
+              placeholder="e.g Electricity"
               value={email}
               name="email"
               onChange={handleChange}
-              className="px-3 py-2"
+              className="px-3 py-2 ms-1"
               style={{ color: "#000000", backgroundColor: "#ffffff" }}
             />
           </div>
 
-          <div className="mt-3 form d-flex">
-            <h5 className="me-5 pe-3 mt-1">password</h5>
-            <input
-              type="password"
-              placeholder="Your Password"
-              value={password}
-              name="password"
+          <div className="mt-1 form d-flex" s>
+            <h5 className="me-5 mt-4">Group</h5>
+            <Form.Select
+              aria-label="Default select example"
               onChange={handleChange}
-              className="px-3 py-2"
-              style={{ color: "#000000", backgroundColor: "#ffffff" }}
-            />
+              value={form?.gender}
+              name="gender"
+              className="mt-3">
+              <option>Select group</option>
+              <option value="Income">Income</option>
+              <option value="Expenses">Expenses</option>
+            </Form.Select>
           </div>
+
           <div className="d-flex gap-2 mt-4 float-end">
-            <Button variant="danger ps-5 pe-5 mt-2 me-2 w-40" type="submit" className="btn px-5 ">
+            <Button variant="warning ps-5 pe-5 mt-2 me-2 w-40" className="btn px-5 ">
               Save
             </Button>
-            <Button variant="outline-danger ps-5 pe-5 mt-2 me-2 w-40" className="btn px-5">
+            <Button variant="outline-warning ps-5 pe-5 mt-2 me-2 w-40" className="btn px-5">
               Cancel
             </Button>
           </div>
-        </form>
+        </Form>
       </Modal.Body>
     </Modal>
   );
