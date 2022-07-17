@@ -5,7 +5,7 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 
 import { API, setAuthToken } from "./config/api";
 import { UserContext } from "./context/userContext";
-import { HomeDaily } from "./pages/HomeDaily";
+import { HomeWeekly } from "./pages/HomeWeekly";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -20,7 +20,7 @@ export const App = () => {
       setAuthToken(localStorage.token);
     }
     if (state.isLogin === false) {
-      navigate("/homedaily");
+      navigate("/homeweekly");
     } else {
       if (state.user.status === "Customer") {
         navigate("/user");
@@ -58,7 +58,7 @@ export const App = () => {
 
   return (
     <Routes>
-      <Route path="/homedaily" element={<HomeDaily />} />
+      <Route path="/homeweekly" element={<HomeWeekly />} />
     </Routes>
   );
 };

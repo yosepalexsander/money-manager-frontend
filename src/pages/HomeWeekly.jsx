@@ -5,7 +5,7 @@ import React from "react";
 import { Transaction } from "../components/auth/Transaction";
 import { LayoutUser } from "../components/LayoutUser";
 
-export const HomeDaily = () => {
+export const HomeWeekly = () => {
   const title = "Home";
   document.title = "Hacketon | " + title;
 
@@ -23,20 +23,6 @@ export const HomeDaily = () => {
                     <div className="row g-0">
                       <div className="col pt-0">
                         <div className="card-body">
-                          <div
-                            className="pb-1 ps-3 d-flex"
-                            style={{ color: "#000000", fontSize: "20px", borderBottom: "solid" }}>
-                            <h3 className="pe-5">
-                              <b>18</b>
-                            </h3>
-                            <h5 className="ps-5  pe-5 mt-2">07.2022</h5>
-                            <h5 className="ps-5 pe-5 mt-2" style={{ color: "#0889FF" }}>
-                              Rp. 500,000
-                            </h5>
-                            <h5 className="ps-5 pe-5 mt-2" style={{ color: "#F06161" }}>
-                              Rp. 30,000
-                            </h5>
-                          </div>
                           <div className="">
                             <div className="">
                               <div className="">
@@ -49,28 +35,19 @@ export const HomeDaily = () => {
                                         <h5 className="pb-3" style={{ color: "#050505", fontSize: "20px" }}>
                                           Food &emsp;
                                         </h5>
-                                        <h5 className="pb-3" style={{ color: "#050505", fontSize: "20px" }}>
-                                          Bonus &emsp;
-                                        </h5>
-                                        <h5 style={{ color: "#050505", fontSize: "20px" }}>Food &emsp;</h5>
                                       </div>
-                                      <div className="pe-5">
-                                        <h5 className="pb-3" style={{ color: "#050505", fontSize: "20px" }}>
-                                          Cash &emsp;
-                                        </h5>
-                                        <h5 className="pb-3" style={{ color: "#050505", fontSize: "20px" }}>
-                                          Card &emsp;
-                                        </h5>
-                                        <h5 style={{ color: "#050505", fontSize: "20px" }}>Accounts &emsp;</h5>
-                                      </div>
-                                      <div style={{ paddingLeft: "32%" }}>
-                                        <h5 className="pb-3" style={{ color: "#F06161", fontSize: "20px" }}>
-                                          Rp. 5,000 &emsp;
-                                        </h5>
+                                      <div className="pe-5" style={{ paddingLeft: "32%" }}>
                                         <h5 className="pb-3" style={{ color: "#0889FF", fontSize: "20px" }}>
                                           Rp. 500,000 &emsp;
                                         </h5>
-                                        <h5 style={{ color: "#F06161", fontSize: "20px" }}>Rp. 25,000 &emsp;</h5>
+                                      </div>
+                                      <div className="ps-4">
+                                        <h5 className="pb-3" style={{ color: "#F06161", fontSize: "20px" }}>
+                                          Rp. 50,000 &emsp;
+                                        </h5>
+                                        <h5 className="pb-3" style={{ color: "#050505", fontSize: "20px" }}>
+                                          Rp. 450,000 &emsp;
+                                        </h5>
                                       </div>
                                     </div>
                                   </div>
