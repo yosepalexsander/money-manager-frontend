@@ -4,7 +4,7 @@ import { useMutation } from "react-query";
 
 import { API } from "../../config/api";
 
-export const AddCategory = ({ show, handleClose }) => {
+export const AddTransaction = ({ show, handleClose }) => {
   const title = "Register";
   document.title = "DumbMerch | " + title;
 
@@ -15,7 +15,7 @@ export const AddCategory = ({ show, handleClose }) => {
     password: "",
   });
 
-  const { email } = form;
+  const { name } = form;
   const handleChange = (e) => {
     setForm({
       ...form,
@@ -68,51 +68,83 @@ export const AddCategory = ({ show, handleClose }) => {
   });
 
   return (
-    <Modal show={show} onHide={handleClose} centered style={{ width: "24%", marginLeft: "38%" }}>
+    <Modal show={show} onHide={handleClose} centered style={{ width: "30%", marginLeft: "35%" }}>
       <Modal.Body className="text-dark">
         <div
           style={{ fontSize: "22px", lineHeight: "49px", fontWeight: "600", borderBottom: "solid" }}
           className="mt-3 mb-5">
-          Create new category
+          Add new transaction
         </div>
         {message && message}
-        <Form onSubmit={(e) => handleSubmit.mutate(e)}>
+        <form onSubmit={(e) => handleSubmit.mutate(e)}>
+          <Button variant="outline-primary mt-2" type="submit" className="btn px-5 py-0 ">
+            <p style={{ paddingLeft: "30px", paddingRight: "30px" }}>Income</p>
+          </Button>
+          <Button variant="outline-dark float-end ps-5 pe-5 mt-2 pt-0 w-40" className="btn px-5 py-0">
+            <p style={{ paddingLeft: "30px", paddingRight: "30px" }}>Expenses</p>
+          </Button>
+
           <div className="mt-3 form d-flex">
-            <h5 className="me-5 mt-1">Name</h5>
+            <h5 className="me-5 pe-5 mt-2">Date</h5>
             <input
-              type="text"
-              placeholder="e.g Electricity"
-              value={email}
-              name="email"
+              type="date"
+              placeholder="Select date"
+              value={name}
+              name="name"
               onChange={handleChange}
-              className="px-3 py-2 ms-1"
+              className="px-3 py-2 ms-2"
               style={{ color: "#000000", backgroundColor: "#ffffff" }}
             />
           </div>
 
-          <div className="mt-1 form d-flex" s>
-            <h5 className="me-5 mt-4">Group</h5>
+          <div className="mt-1 form d-flex">
+            <h5 className="me-5 pe-4 mt-4">Account</h5>
             <Form.Select
               aria-label="Default select example"
               onChange={handleChange}
               value={form?.gender}
               name="gender"
-              className="mt-3">
-              <option>Select group</option>
+              className="mt-3 py-2">
+              <option>Select account</option>
               <option value="Income">Income</option>
               <option value="Expenses">Expenses</option>
             </Form.Select>
           </div>
 
+          <div className="mt-1 form d-flex" s>
+            <h5 className="me-5 pe-3 mt-4">Category</h5>
+            <Form.Select
+              aria-label="Default select example"
+              onChange={handleChange}
+              value={form?.gender}
+              name="gender"
+              className="mt-3 py-2">
+              <option>Select category</option>
+              <option value="Income">Income</option>
+              <option value="Expenses">Expenses</option>
+            </Form.Select>
+          </div>
+          <div className="mt-3 form d-flex">
+            <h5 className="me-5 pe-4 mt-2">Amount</h5>
+            <input
+              type="text"
+              placeholder="Transaction amount"
+              value={name}
+              name="name"
+              onChange={handleChange}
+              className="px-3 py-2"
+              style={{ color: "#000000", backgroundColor: "#ffffff" }}
+            />
+          </div>
           <div className="d-flex gap-2 mt-4 float-end">
-            <Button variant="warning ps-5 pe-5 mt-2 me-2 w-40" className="btn px-5 ">
+            <Button variant="danger ps-5 pe-5 mt-2 me-2 w-40" type="submit" className="btn px-5 ">
               Save
             </Button>
-            <Button variant="outline-warning ps-5 pe-5 mt-2 me-2 w-40" className="btn px-5">
+            <Button variant="outline-danger ps-5 pe-5 mt-2 me-2 w-40" className="btn px-5">
               Cancel
             </Button>
           </div>
-        </Form>
+        </form>
       </Modal.Body>
     </Modal>
   );
