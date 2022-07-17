@@ -1,12 +1,17 @@
-import React, { useState } from "react";
+import { memo, useCallback, useState } from "react";
 import { Alert, Button, Modal } from "react-bootstrap";
 import { useMutation } from "react-query";
 
 import { API } from "../../config/api";
 
-export const Register = ({ show, handleClose }) => {
-  const title = "Register";
-  document.title = "DumbMerch | " + title;
+const config = {
+  headers: {
+    "Content-type": "application/json",
+  },
+};
+
+export const Register = memo(({ show, onClose }) => {
+  document.title = "Money Manager | Register";
 
   const [message, setMessage] = useState(null);
   const [form, setForm] = useState({
@@ -14,29 +19,23 @@ export const Register = ({ show, handleClose }) => {
     email: "",
     password: "",
   });
-
   const { name, email, password } = form;
-  const handleChange = (e) => {
-    setForm({
-      ...form,
+
+  const handleChange = useCallback((e) => {
+    setForm((prev) => ({
+      ...prev,
       [e.target.name]: e.target.value,
-    });
-  };
+    }));
+  }, []);
 
   const handleSubmit = useMutation(async (e) => {
+    e.preventDefault();
+
     try {
-      e.preventDefault();
-
-      const config = {
-        headers: {
-          "Content-type": "application/json",
-        },
-      };
-
       const body = JSON.stringify(form);
       const response = await API.post("/register", body, config);
 
-      if (response.data.status === "success...") {
+      if (response.status === 200) {
         const alert = (
           <Alert variant="success" className="py-1">
             Success
@@ -67,19 +66,21 @@ export const Register = ({ show, handleClose }) => {
     }
   });
 
-  return (
-    <Modal show={show} onHide={handleClose} centered style={{ width: "30%", marginLeft: "35%" }}>
-      <Modal.Body className="text-dark">
-        <div
-          style={{ fontSize: "22px", lineHeight: "49px", fontWeight: "600", borderBottom: "solid" }}
-          className="mt-3 mb-5">
-          Sign Up
-        </div>
+  const handleClose = useCallback(() => {
+    onClose();
+    setMessage();
+  }, [onClose]);
 
+  return (
+    <Modal show={show} onHide={handleClose} centered>
+      <Modal.Header>
+        <Modal.Title>Sign up</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
         {message && message}
-        <form onSubmit={(e) => handleSubmit.mutate(e)}>
-          <div className="mt-3 form d-flex">
-            <h5 className="me-5 pe-5 mt-1">Name</h5>
+        <form id="formRegister" onSubmit={(e) => handleSubmit.mutate(e)}>
+          <div className="form d-flex align-items-center">
+            <p style={{ flex: 0.5 }}>Name</p>
             <input
               type="text"
               placeholder="e.g Jhon Doe"
@@ -87,25 +88,24 @@ export const Register = ({ show, handleClose }) => {
               name="name"
               onChange={handleChange}
               className="px-3 py-2"
-              style={{ color: "#000000", backgroundColor: "#ffffff" }}
+              style={{ flex: 1.5 }}
             />
           </div>
-
-          <div className="mt-3 form d-flex">
-            <h5 className="me-5 pe-5 mt-1">Email </h5>
+          <div className="form d-flex align-items-center mt-3">
+            <p style={{ flex: 0.5 }}>Email</p>
             <input
               type="email"
               placeholder="e.g Johndoe@example.com"
               value={email}
               name="email"
               onChange={handleChange}
-              className="px-3 py-2 ms-1"
-              style={{ color: "#000000", backgroundColor: "#ffffff" }}
+              className="px-3 py-2"
+              style={{ flex: 1.5 }}
             />
           </div>
 
-          <div className="mt-3 form d-flex">
-            <h5 className="me-5 pe-3 mt-1">Password</h5>
+          <div className="form d-flex align-items-center mt-3">
+            <p style={{ flex: 0.5 }}>Password</p>
             <input
               type="password"
               placeholder="Your Password"
@@ -113,19 +113,19 @@ export const Register = ({ show, handleClose }) => {
               name="password"
               onChange={handleChange}
               className="px-3 py-2"
-              style={{ color: "#000000", backgroundColor: "#ffffff" }}
+              style={{ flex: 1.5 }}
             />
-          </div>
-          <div className="d-flex gap-2 mt-4 float-end">
-            <Button variant="danger ps-5 pe-5 mt-2 me-2 w-40" type="submit" className="btn px-5 ">
-              Save
-            </Button>
-            <Button variant="outline-danger ps-5 pe-5 mt-2 me-2 w-40" className="btn px-5">
-              Cancel
-            </Button>
           </div>
         </form>
       </Modal.Body>
+      <Modal.Footer>
+        <Button variant="primary" type="submit" form="formRegister" className="px-5">
+          Sign up
+        </Button>
+        <Button variant="outline-primary" className="px-5" onClick={handleClose}>
+          Cancel
+        </Button>
+      </Modal.Footer>
     </Modal>
   );
-};
+});

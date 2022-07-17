@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Button, Container, Row } from "react-bootstrap";
+import { useCallback, useState } from "react";
+import { Button, Container } from "react-bootstrap";
 
 import Money from "../assets/Money.png";
 import { Login } from "../components/modal/Login";
@@ -19,66 +19,34 @@ export const Auth = () => {
 
   // checkAuth();
 
-  const [showRegister, setShowRegister] = useState(false);
-  const handleCloseRegister = () => setShowRegister(false);
-  const handleShowRegister = () => setShowRegister(true);
+  const [isModalRegisterShow, setIsModalRegisterShow] = useState(false);
+  const handleCloseModalRegister = useCallback(() => setIsModalRegisterShow(false), []);
+  const handleShowModalRegister = useCallback(() => setIsModalRegisterShow(true), []);
 
-  const [showLogin, setShowLogin] = useState(false);
-  const handleCloseLogin = () => setShowLogin(false);
-  const handleShowLogin = () => setShowLogin(true);
-
-  const [, setIdRegister] = useState(null);
-  const [, setIdLogin] = useState(null);
-  const [, setConfirmRegister] = useState(null);
-  const [, setConfirmLogin] = useState(null);
-
-  const handleRegister = (id) => {
-    setIdRegister(id);
-    handleShowRegister();
-  };
-
-  const handleLogin = (id) => {
-    setIdLogin(id);
-    handleShowLogin();
-  };
+  const [isModalLoginShow, setIsModalLoginShow] = useState(false);
+  const handleCloseModalLogin = useCallback(() => setIsModalLoginShow(false), []);
+  const handleShowModalLogin = useCallback(() => setIsModalLoginShow(true), []);
 
   return (
-    <div className="">
-      <Container>
-        <Row className="vh-100 d-flex align-items-center">
-          <div className="" style={{ textAlign: "center" }}>
-            <div className="mb-4" style={{ textAlign: "center" }}>
-              <img src={Money} style={{ width: "125px" }} alt="brand" />
-            </div>
-            <div className="mb-5">
-              <h1 style={{ color: "#000000" }}>Be a Financial Manager for Yourself</h1>
-            </div>
-            <div className="mb-5">
-              <h5 style={{ color: "#000000" }}>Record your every Income and Expense</h5>
-              <h5 style={{ color: "#000000" }}>so you can easily monitor your financial flow and manage it</h5>
-            </div>
-            <Button
-              variant="outline-danger ps-5 pe-5 mt-2 me-2 w-40"
-              onClick={() => {
-                handleLogin();
-              }}
-              className="btn px-5">
-              Log In
-            </Button>
-            <Button
-              variant="outline-danger ps-5 pe-5 mt-2 me-2 w-40"
-              onClick={() => {
-                handleRegister();
-              }}
-              className="btn px-5">
-              Sign Up
-            </Button>
+    <>
+      <Container className="d-flex justify-content-center align-items-center" style={{ height: "85vh" }}>
+        <div className="text-center">
+          <img src={Money} style={{ width: "125px" }} alt="brand-logo" className="mb-3" />
+          <h1 className="mb-3">Be a Financial Manager for Yourself</h1>
+          <div className="mb-5">
+            <h6>Record your every Income and Expense</h6>
+            <h6>so you can easily monitor your financial flow and manage it</h6>
           </div>
-        </Row>
+          <Button variant="outline-primary" className="mx-2 px-5" onClick={handleShowModalLogin}>
+            Log In
+          </Button>
+          <Button variant="primary" className="mx-2 px-5" onClick={handleShowModalRegister}>
+            Sign Up
+          </Button>
+        </div>
       </Container>
-
-      <Register setConfirmRegister={setConfirmRegister} show={showRegister} handleClose={handleCloseRegister} />
-      <Login setConfirmLogin={setConfirmLogin} show={showLogin} handleClose={handleCloseLogin} />
-    </div>
+      <Register show={isModalRegisterShow} onClose={handleCloseModalRegister} />
+      <Login show={isModalLoginShow} onClose={handleCloseModalLogin} />
+    </>
   );
 };

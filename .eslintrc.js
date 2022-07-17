@@ -12,9 +12,9 @@ module.exports = {
     sourceType: "module",
   },
   plugins: ["import", "eslint-plugin-simple-import-sort", "prettier"],
-
   rules: {
     "max-len": ["error", 120],
+    "prefer-const": 2,
     "no-unused-expressions": 0,
     "no-unused-vars": [
       "warn",
