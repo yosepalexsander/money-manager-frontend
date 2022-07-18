@@ -16,7 +16,7 @@ export const ModalLogin = memo(({ show, onClose }) => {
   document.title = "Money Manager | Login";
 
   const navigate = useNavigate();
-  const [dispatch] = useContext(UserContext);
+  const [, dispatch] = useContext(UserContext);
   const [message, setMessage] = useState(null);
   const [form, setForm] = useState({
     email: "",

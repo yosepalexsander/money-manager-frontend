@@ -16,7 +16,7 @@ export const ModalRegister = memo(({ show, onClose }) => {
   document.title = "Money Manager | Register";
 
   const navigate = useNavigate();
-  const [dispatch] = useContext(UserContext);
+  const [, dispatch] = useContext(UserContext);
   const [message, setMessage] = useState(null);
   const [form, setForm] = useState({
     name: "",
@@ -40,18 +40,6 @@ export const ModalRegister = memo(({ show, onClose }) => {
       const response = await API.post("/register", body, config);
 
       if (response.status === 200) {
-        const alert = (
-          <Alert variant="success" className="py-1">
-            Success
-          </Alert>
-        );
-        setMessage(alert);
-        setForm({
-          name: "",
-          email: "",
-          password: "",
-        });
-
         dispatch({
           type: "REGISTER_SUCCESS",
           payload: response.data.data,

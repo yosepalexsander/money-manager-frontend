@@ -33,8 +33,6 @@ export const App = () => {
         type: "USER_SUCCESS",
         payload,
       });
-
-      navigate("/");
     } catch (error) {
       console.log(error);
       navigate("/auth");
