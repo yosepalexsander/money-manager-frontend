@@ -33,18 +33,14 @@ export const NavbarUser = memo(() => {
             <Dropdown.Toggle className="bg-transparent border-0">
               <img src={Profile} className="rounded-circle me-2 img-contact" alt="user avatar" />
             </Dropdown.Toggle>
-
             <Dropdown.Menu className="me-5">
-              <Dropdown.Item as={Link} to="/user/setting" style={{ color: "#000000", fontSize: "20px" }}>
-                <FontAwesomeIcon icon={faGear} style={{ color: "#F3A871", fontSize: "25px", paddingRight: "10px" }} />
-                Settings
+              <Dropdown.Item as={Link} to="/user/setting" className="py-2 d-flex gap-3 align-items-center">
+                <FontAwesomeIcon icon={faGear} style={{ color: "#F3A871", fontSize: "25px" }} />
+                <p>Settings</p>
               </Dropdown.Item>
-              <Dropdown.Item onClick={logout} style={{ color: "#000000", fontSize: "20px" }}>
-                <FontAwesomeIcon
-                  icon={faArrowRightFromBracket}
-                  style={{ color: "#F3A871", fontSize: "25px", paddingRight: "10px" }}
-                />{" "}
-                Logout
+              <Dropdown.Item className="py-2 d-flex gap-3 align-items-center" onClick={logout}>
+                <FontAwesomeIcon icon={faArrowRightFromBracket} style={{ color: "#F3A871", fontSize: "25px" }} />{" "}
+                <p>Logout</p>
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>

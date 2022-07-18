@@ -2,23 +2,10 @@ import { useCallback, useState } from "react";
 import { Button, Container } from "react-bootstrap";
 
 import Money from "../assets/Money.png";
-import { Login } from "../components/modal/Login";
-import { Register } from "../components/modal/Register";
+import { ModalLogin } from "../components/modal/ModalLogin";
+import { ModalRegister } from "../components/modal/ModalRegister";
 
 export const Auth = () => {
-  // const [state] = useContext(UserContext);
-  // const checkAuth = () => {
-  //   if (state.isLogin === true) {
-  //     if(state.user.status == 'Customer'){
-  //       navigate('/user')
-  //     }else{
-  //       navigate('/admin')
-  //     }
-  //   }
-  // };
-
-  // checkAuth();
-
   const [isModalRegisterShow, setIsModalRegisterShow] = useState(false);
   const handleCloseModalRegister = useCallback(() => setIsModalRegisterShow(false), []);
   const handleShowModalRegister = useCallback(() => setIsModalRegisterShow(true), []);
@@ -45,8 +32,8 @@ export const Auth = () => {
           </Button>
         </div>
       </Container>
-      <Register show={isModalRegisterShow} onClose={handleCloseModalRegister} />
-      <Login show={isModalLoginShow} onClose={handleCloseModalLogin} />
+      <ModalRegister show={isModalRegisterShow} onClose={handleCloseModalRegister} />
+      <ModalLogin show={isModalLoginShow} onClose={handleCloseModalLogin} />
     </>
   );
 };
