@@ -33,7 +33,7 @@ export const HomeWeekly = () => {
                                     <div className="mb-1 mt-1 d-flex">
                                       <div className="pe-5">
                                         <h5 className="pb-3" style={{ color: "#050505", fontSize: "20px" }}>
-                                          Food &emsp;
+                                          Week 1
                                         </h5>
                                       </div>
                                       <div className="pe-5" style={{ paddingLeft: "32%" }}>
