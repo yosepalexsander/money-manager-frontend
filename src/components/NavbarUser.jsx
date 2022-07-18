@@ -1,6 +1,6 @@
 import { faArrowRightFromBracket, faGear } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useContext } from "react";
+import { memo, useCallback, useContext } from "react";
 import { Dropdown } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
@@ -10,21 +10,21 @@ import Money from "../assets/Money.png";
 import Profile from "../assets/Profile.png";
 import { UserContext } from "../context/userContext";
 
-export const NavbarUser = () => {
-  let navigate = useNavigate();
+export const NavbarUser = memo(() => {
+  const navigate = useNavigate();
+  const [, dispatch] = useContext(UserContext);
 
-  const [state, dispatch] = useContext(UserContext);
-  const logout = () => {
-    console.log(state);
+  const logout = useCallback(() => {
     dispatch({
       type: "LOGOUT",
     });
     navigate("/auth");
-  };
+  }, [dispatch, navigate]);
+
   return (
     <Navbar bg="white">
       <Container>
-        <Navbar.Brand as={Link} to="/user">
+        <Navbar.Brand as={Link} to="/">
           <img src={Money} style={{ maxWidth: "50px" }} alt="" />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -52,4 +52,4 @@ export const NavbarUser = () => {
       </Container>
     </Navbar>
   );
-};
+});

@@ -12,7 +12,7 @@ import { AddCategory } from "../components/modal/AddCategory";
 import { DeleteData } from "../components/modal/DeleteData";
 
 export const Setting = () => {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   const title = "Setting";
   document.title = "Hacketon | " + title;
