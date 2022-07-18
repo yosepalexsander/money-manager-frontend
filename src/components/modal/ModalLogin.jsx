@@ -94,7 +94,7 @@ export const ModalLogin = memo(({ show, onClose }) => {
             <p style={{ flex: 0.5 }}>Name</p>
             <input
               type="text"
-              placeholder="e.g Cash"
+              placeholder="e.g jhondoe@example.com"
               value={email}
               name="email"
               className="px-3 py-2"
@@ -106,7 +106,7 @@ export const ModalLogin = memo(({ show, onClose }) => {
             <p style={{ flex: 0.5 }}>Password</p>
             <input
               type="password"
-              placeholder="Your Password"
+              placeholder="Your password"
               value={password}
               name="password"
               className="px-3 py-2"

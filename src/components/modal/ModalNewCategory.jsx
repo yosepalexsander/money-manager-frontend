@@ -30,7 +30,7 @@ export const ModalNewCategory = memo(({ show, onClose }) => {
 
     try {
       const body = JSON.stringify(form);
-      const response = await API.post("/register", body, config);
+      const response = await API.post("/categories", body, config);
 
       if (response.status === 200) {
         const alert = (
