@@ -19,7 +19,6 @@ export const ModalLogin = memo(({ show, onClose }) => {
   const [dispatch] = useContext(UserContext);
   const [message, setMessage] = useState(null);
   const [form, setForm] = useState({
-    name: "",
     email: "",
     password: "",
   });
@@ -48,7 +47,6 @@ export const ModalLogin = memo(({ show, onClose }) => {
         );
         setMessage(alert);
         setForm({
-          name: "",
           email: "",
           password: "",
         });
