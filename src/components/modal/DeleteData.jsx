@@ -1,26 +1,22 @@
 import { Button, Modal } from "react-bootstrap";
 
-export const DeleteData = ({ show, handleClose, setConfirmDelete }) => {
-  const handleDelete = () => {
-    setConfirmDelete(true);
-  };
-
+export const DeleteData = ({ show, onClose, onDelete }) => {
   return (
-    <Modal show={show} onHide={handleClose} centered>
-      <Modal.Body className="text-dark">
-        <div style={{ fontSize: "20px", fontWeight: "900" }}>Delete Data</div>
-        <div style={{ fontSize: "16px", fontWeight: "500" }} className="mt-2">
-          Are you sure you want to delete?
-        </div>
-        <div className="text-end mt-5">
-          <Button onClick={handleDelete} size="sm" className="btn-warning me-2" style={{ width: "135px" }}>
-            Yes
-          </Button>
-          <Button onClick={handleClose} size="sm" className="btn-danger" style={{ width: "135px" }}>
-            No
-          </Button>
-        </div>
+    <Modal show={show} onHide={onClose} centered>
+      <Modal.Header>
+        <Modal.Title>Confirmation Dialog</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <p className="mt-2 fw-bold">Are you sure you want to delete?</p>
       </Modal.Body>
+      <Modal.Footer>
+        <Button variant="danger" onClick={onDelete}>
+          Delete
+        </Button>
+        <Button variant="outline-danger" onClick={onClose}>
+          Cancel
+        </Button>
+      </Modal.Footer>
     </Modal>
   );
 };

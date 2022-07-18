@@ -1,241 +1,199 @@
-import "../style/Setting.css";
-
 import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
-import { Button, Table } from "react-bootstrap";
-import { useNavigate } from "react-router";
+import { Button, Card, Table } from "react-bootstrap";
 
 import { LayoutUser } from "../components/LayoutUser";
-import { AddAccount } from "../components/modal/AddAccount";
-import { AddCategory } from "../components/modal/AddCategory";
 import { DeleteData } from "../components/modal/DeleteData";
+import { ModalNewAccount } from "../components/modal/ModalNewAccount";
+import { ModalNewCategory } from "../components/modal/ModalNewCategory";
 
 export const Setting = () => {
-  const navigate = useNavigate();
-
-  const title = "Setting";
-  document.title = "Hacketon | " + title;
+  document.title = "Money Manager | Setting";
 
   const [, setIdDelete] = useState(null);
-  const [, setConfirmDelete] = useState(null);
 
-  const [, setConfirmAddAccount] = useState(null);
+  const [isModalNewAccountShow, setIsModalNewAccountShow] = useState(false);
+  const [isDialogDeleteAccountShow, setIsDialogDeleteAccountShow] = useState(false);
+  const [isModalNewCategoryShow, setIsModalNewCategoryShow] = useState(false);
+  const [isDialogDeleteCategoryShow, setIsDialogDeleteCategoryShow] = useState(false);
 
-  const [, setConfirmAddCategory] = useState(null);
+  const handleCloseDialogDeleteAccount = () => setIsModalNewAccountShow(false);
+  const handleCloseModalNewAccount = () => setIsModalNewAccountShow(false);
+  const handleShowModalNewAccount = () => setIsModalNewAccountShow(true);
 
-  const [showAddAccount, setShowAddAccount] = useState(false);
-  const handleCloseAddAccount = () => setShowAddAccount(false);
-  const handleShowAddAccount = () => setShowAddAccount(true);
+  const handleCloseDialogDeleteCategory = () => setIsDialogDeleteCategoryShow(false);
+  const handleCloseModalNewCategory = () => setIsModalNewCategoryShow(false);
+  const handleShowModalNewCategory = () => setIsModalNewCategoryShow(true);
 
-  const [showAddCategory, setShowAddCategory] = useState(false);
-  const handleCloseAddCategory = () => setShowAddCategory(false);
-  const handleShowAddCategory = () => setShowAddCategory(true);
-
-  const [showDeleteData, setShowDeleteData] = useState(false);
-  const handleCloseDeleteData = () => setShowDeleteData(false);
-  const handleShowDeleteData = () => setShowDeleteData(true);
-
-  const handleEdit = (id) => {
-    navigate(`/admin/edit-product/${id}`);
-  };
-
-  const handleDeleteData = (id) => {
+  const handleShowDialogDeleteAccount = (id) => {
     setIdDelete(id);
-    handleShowDeleteData();
+    setIsDialogDeleteCategoryShow(true);
   };
 
-  const handleAddAccount = () => {
-    handleShowAddAccount();
+  const handleShowDialogDeleteCategory = (id) => {
+    setIdDelete(id);
+    setIsDialogDeleteCategoryShow(true);
   };
 
-  const handleAddCategory = () => {
-    handleShowAddCategory();
+  const handleDeleteAccount = () => {
+    console.log("delete account");
+    setIsDialogDeleteAccountShow(false);
+  };
+
+  const handleDeleteCategory = () => {
+    console.log("delete");
+    setIsDialogDeleteCategoryShow(false);
   };
 
   return (
     <div className="user-container">
       <LayoutUser />
-      <body className="border-Setting">
-        <div className="container h-100">
-          <div className="container h-100">
-            <div className="row alin-items-center h-100">
-              <form className="wow fadeInUp border-0 bg-transparent pt-4" data-wow-delay="0.2s">
-                <div className="card border-0 bg-transparent">
-                  <div className="card mb-5 border-0" style={{ backgroundColor: "#FFFFFF", borderRadius: "15px" }}>
-                    <div className="row g-0">
-                      <div className="col pt-0">
-                        <div className="card-body">
-                          <h1 className="pb-3" style={{ color: "#000000", fontSize: "30px", borderBottom: "solid" }}>
-                            <b>Accounts</b>
-                          </h1>
-                          <div className="col-md-12 d-flex">
-                            <div className="col-md-9">
-                              <Table className="mt-5" style={{ border: "solid" }}>
-                                <thead className="">
-                                  <tr>
-                                    <th>No&emsp;&emsp;&emsp;&emsp;</th>
-                                    <th>Name</th>
-                                    <th style={{ width: "30%" }}>Action</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <tr key="">
-                                    <td className="pt-4">1</td>
-                                    <td className="pt-4">Cash</td>
-                                    <td>
-                                      <Button
-                                        variant="warning ps-4 pe-4 mt-2 me-2 w-40"
-                                        onClick={() => {
-                                          handleEdit();
-                                        }}
-                                        className="button-table">
-                                        Update
-                                      </Button>
-                                      <Button
-                                        variant="outline-danger ps-4 pe-4 mt-2 w-40"
-                                        onClick={() => {
-                                          handleDeleteData();
-                                        }}
-                                        className="ms-2 button-table">
-                                        Delete
-                                      </Button>
-                                    </td>
-                                  </tr>
-                                </tbody>
-                              </Table>
-                            </div>
-                          </div>
-                          <div className="mb-4 me-5 float-end">
-                            <Button
-                              variant=""
-                              onClick={() => {
-                                handleAddAccount();
-                              }}>
-                              <FontAwesomeIcon icon={faCirclePlus} style={{ color: "#EB786B", fontSize: "45px" }} />
-                            </Button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </form>
+      <main className="border-Setting">
+        <div className="container py-5">
+          <div className="d-flex flex-column gap-4 h-100">
+            <div className="pt-0">
+              <Card>
+                <h4 className="p-3">Accounts</h4>
+                <hr style={{ backgroundColor: "#6D6D6D" }} />
+                <Card.Body>
+                  <Button className="d-flex gap-2 align-items-center" onClick={handleShowModalNewAccount}>
+                    <FontAwesomeIcon icon={faCirclePlus} style={{ fontSize: "20px" }} />
+                    <p>Create account</p>
+                  </Button>
+                </Card.Body>
+                <Card.Body>
+                  <Table bordered style={{ maxWidth: "50rem" }}>
+                    <thead>
+                      <tr>
+                        <th scope="col" style={{ width: "15%" }}>
+                          No
+                        </th>
+                        <th scope="col" style={{ width: "55%" }}>
+                          Name
+                        </th>
+                        <th scope="col" style={{ width: "30%" }}>
+                          Action
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>1</td>
+                        <td>Cash</td>
+                        <td>
+                          <Button className="button-table" onClick={handleShowModalNewAccount}>
+                            Update
+                          </Button>
+                          <Button
+                            variant="outline-danger"
+                            className="ms-2 button-table"
+                            onClick={handleShowDialogDeleteAccount}>
+                            Delete
+                          </Button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </Table>
+                </Card.Body>
+              </Card>
+            </div>
+            <div className="pt-0">
+              <Card>
+                <h4 className="p-3">Categories</h4>
+                <hr style={{ backgroundColor: "#6D6D6D" }} />
+                <Card.Body>
+                  <Button className="d-flex gap-2 align-items-center" onClick={handleShowModalNewCategory}>
+                    <FontAwesomeIcon icon={faCirclePlus} style={{ fontSize: "20px" }} />
+                    <p>Create category</p>
+                  </Button>
+                </Card.Body>
+                <Card.Body>
+                  <h6>Income Categories</h6>
+                  <Table bordered style={{ maxWidth: "50rem" }}>
+                    <thead className="">
+                      <tr>
+                        <th scope="col" style={{ width: "15%" }}>
+                          No
+                        </th>
+                        <th scope="col" style={{ width: "55%" }}>
+                          Name
+                        </th>
+                        <th scope="col" style={{ width: "30%" }}>
+                          Action
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr key="">
+                        <td>1</td>
+                        <td>Salary</td>
+                        <td>
+                          <Button className="button-table" onClick={handleShowModalNewCategory}>
+                            Update
+                          </Button>
+                          <Button
+                            variant="outline-danger"
+                            className="ms-2 button-table"
+                            onClick={handleShowDialogDeleteCategory}>
+                            Delete
+                          </Button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </Table>
 
-              <form className="wow fadeInUp border-0 bg-transparent pt-4" data-wow-delay="0.2s">
-                <div className="card border-0 bg-transparent">
-                  <div className="card mb-5 border-0" style={{ backgroundColor: "#FFFFFF", borderRadius: "15px" }}>
-                    <div className="row g-0">
-                      <div className="col pt-0">
-                        <div className="card-body">
-                          <h1 className="pb-3" style={{ color: "#000000", fontSize: "30px", borderBottom: "solid" }}>
-                            <b>Categories</b>
-                          </h1>
-                          <h1 className="mt-5" style={{ color: "#000000", fontSize: "30px" }}>
-                            Income Categories
-                          </h1>
-                          <div className="col-md-12 d-flex">
-                            <div className="col-md-9">
-                              <Table style={{ border: "solid" }}>
-                                <thead className="">
-                                  <tr>
-                                    <th>No&emsp;&emsp;&emsp;&emsp;</th>
-                                    <th>Name</th>
-                                    <th style={{ width: "30%" }}>Action</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <tr key="">
-                                    <td className="pt-4">1</td>
-                                    <td className="pt-4">Salary</td>
-                                    <td>
-                                      <Button
-                                        variant="warning ps-4 pe-4 mt-2 me-2 w-40"
-                                        onClick={() => {
-                                          handleEdit();
-                                        }}
-                                        className="button-table">
-                                        Update
-                                      </Button>
-                                      <Button
-                                        variant="outline-danger ps-4 pe-4 mt-2 w-40"
-                                        onClick={() => {
-                                          handleDeleteData();
-                                        }}
-                                        className="ms-2 button-table">
-                                        Delete
-                                      </Button>
-                                    </td>
-                                  </tr>
-                                </tbody>
-                              </Table>
-
-                              <h1 style={{ color: "#000000", fontSize: "30px" }}>Expenses Categories</h1>
-                              <Table style={{ border: "solid" }}>
-                                <thead className="">
-                                  <tr>
-                                    <th>No&emsp;&emsp;&emsp;&emsp;</th>
-                                    <th>Name</th>
-                                    <th style={{ width: "30%" }}>Action</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <tr key="">
-                                    <td className="pt-4">1</td>
-                                    <td className="pt-4">Card</td>
-                                    <td>
-                                      <Button
-                                        variant="warning ps-4 pe-4 mt-2 me-2 w-40"
-                                        onClick={() => {
-                                          handleEdit();
-                                        }}
-                                        className="button-table">
-                                        Update
-                                      </Button>
-                                      <Button
-                                        variant="outline-danger ps-4 pe-4 mt-2 w-40"
-                                        onClick={() => {
-                                          handleDeleteData();
-                                        }}
-                                        className="ms-2 button-table">
-                                        Delete
-                                      </Button>
-                                    </td>
-                                  </tr>
-                                </tbody>
-                              </Table>
-                            </div>
-                          </div>
-                          <div className="mb-4 me-5 float-end">
-                            <Button
-                              variant=""
-                              onClick={() => {
-                                handleAddCategory();
-                              }}>
-                              <FontAwesomeIcon icon={faCirclePlus} style={{ color: "#EB786B", fontSize: "45px" }} />
-                            </Button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </form>
+                  <h6>Expenses Categories</h6>
+                  <Table bordered style={{ maxWidth: "50rem" }}>
+                    <thead>
+                      <tr>
+                        <th scope="col" style={{ width: "15%" }}>
+                          No
+                        </th>
+                        <th scope="col" style={{ width: "55%" }}>
+                          Name
+                        </th>
+                        <th scope="col" style={{ width: "30%" }}>
+                          Action
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr key="">
+                        <td>1</td>
+                        <td>Card</td>
+                        <td>
+                          <Button className="button-table" onClick={handleShowModalNewCategory}>
+                            Update
+                          </Button>
+                          <Button
+                            variant="outline-danger"
+                            className="ms-2 button-table"
+                            onClick={handleShowDialogDeleteCategory}>
+                            Delete
+                          </Button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </Table>
+                </Card.Body>
+              </Card>
             </div>
           </div>
         </div>
-      </body>
-      <AddAccount
-        setConfirmAddAccount={setConfirmAddAccount}
-        show={showAddAccount}
-        handleClose={handleCloseAddAccount}
+      </main>
+      <ModalNewAccount show={isModalNewAccountShow} onClose={handleCloseModalNewAccount} />
+      <ModalNewCategory show={isModalNewCategoryShow} onClose={handleCloseModalNewCategory} />
+      <DeleteData
+        show={isDialogDeleteAccountShow}
+        onClose={handleCloseDialogDeleteAccount}
+        onDelete={handleDeleteAccount}
       />
-      <AddCategory
-        setConfirmAddCategory={setConfirmAddCategory}
-        show={showAddCategory}
-        handleClose={handleCloseAddCategory}
+      <DeleteData
+        show={isDialogDeleteCategoryShow}
+        onClose={handleCloseDialogDeleteCategory}
+        onDelete={handleDeleteCategory}
       />
-      <DeleteData setConfirmDelete={setConfirmDelete} show={showDeleteData} handleClose={handleCloseDeleteData} />
     </div>
   );
 };
