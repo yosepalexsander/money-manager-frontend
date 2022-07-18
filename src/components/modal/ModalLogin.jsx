@@ -40,7 +40,7 @@ export const ModalLogin = memo(({ show, onClose }) => {
 
       const response = await API.post("/login", body, config);
 
-      if (response?.status === 200) {
+      if (response.status === 200) {
         const alert = (
           <Alert variant="success" className="py-1">
             Success
@@ -52,6 +52,12 @@ export const ModalLogin = memo(({ show, onClose }) => {
           email: "",
           password: "",
         });
+
+        dispatch({
+          type: "LOGIN_SUCCESS",
+          payload: response.data.data,
+        });
+        navigate("/");
       } else {
         const alert = (
           <Alert variant="danger" className="py-1">
@@ -59,12 +65,6 @@ export const ModalLogin = memo(({ show, onClose }) => {
           </Alert>
         );
         setMessage(alert);
-
-        dispatch({
-          type: "LOGIN_SUCCESS",
-          payload: response.data.data,
-        });
-        navigate("/");
       }
     } catch (error) {
       const alert = (

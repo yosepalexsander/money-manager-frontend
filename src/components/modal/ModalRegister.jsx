@@ -1,8 +1,10 @@
-import { memo, useCallback, useState } from "react";
+import { memo, useCallback, useContext, useState } from "react";
 import { Alert, Button, Modal } from "react-bootstrap";
 import { useMutation } from "react-query";
+import { useNavigate } from "react-router-dom";
 
 import { API } from "../../config/api";
+import { UserContext } from "../../context/userContext";
 
 const config = {
   headers: {
@@ -13,6 +15,8 @@ const config = {
 export const ModalRegister = memo(({ show, onClose }) => {
   document.title = "Money Manager | Register";
 
+  const navigate = useNavigate();
+  const [dispatch] = useContext(UserContext);
   const [message, setMessage] = useState(null);
   const [form, setForm] = useState({
     name: "",
@@ -47,6 +51,12 @@ export const ModalRegister = memo(({ show, onClose }) => {
           email: "",
           password: "",
         });
+
+        dispatch({
+          type: "REGISTER_SUCCESS",
+          payload: response.data.data,
+        });
+        navigate("/");
       } else {
         const alert = (
           <Alert variant="danger" className="py-1">
